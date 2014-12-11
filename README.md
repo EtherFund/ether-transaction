@@ -1,4 +1,4 @@
-ether-transactions
+ether-transaction
 ===============
 
 Explore transactions on the Ethereum network discovered by Etherface.

@@ -67,19 +67,19 @@ function updateTransTable(transactions) {
 		
 		line += "<a href='/tx/"+trans.id+"'>"+trans.id+'</a></td>';
 
-		line += "<td>"+trans.value+'</td>';
+		line += "<td><a href='/tool/converter?'>"+trans.value+'</a></td>';
 		
-		line += "<td>"+trans.gasPrice+' szabo</td>';
+		line += "<td><a href='/tool/converter?'>"+trans.gasPrice+' szabo</a></td>';
 		
-		line += "<td>"+trans.gasLimit+' szabo</td>';
+		line += "<td><a href='/tool/converter?'>"+trans.gasLimit+' szabo</a></td>';
 		
 		line += "<td>"+trans.nonce+'</td>';
 		
 		line += "<td>"+trans.init+'</td>';
 		
-		line += "<td>"+trans.to+'</td>';
+		line += "<td><a>"+trans.to+'</a></td>';
 		
-		line += "<td>"+trans.to+'</td>';
+		line += "<td><a>"+trans.to+'</a></td>';
 		
 		line += "<td><abbr class='timeago' title='"+trans.time+"'>"+trans.time+'</abbr></td>';
 		
@@ -110,34 +110,32 @@ function getTransaction(id) {
 		$(".timeago").timeago();
 		$(".tooltip").tooltip({});
 	});
-	
 }
 
 
-// update Transaction page
+// update Transaction page : /tx/a5d6s6dsd
 function updateTransPage(trans) {
 	
 	$("#transTitle").text(trans.id);
-	
 	
 	// TABLE
 	var table = $("#transTable");
 	
 	table.find("#transId").html(trans.id);
 	
-	table.find("#transValue").html(trans.value);
+	table.find("#transValue").html("<a href='/tool/converter'>"+trans.value+"</a>");
 	
-	table.find("#transGasPrice").html(trans.gasPrice+' szabo');
+	table.find("#transGasPrice").html("<a href='/tool/converter'>"+trans.gasPrice+' szabo</a>');
 	
-	table.find("#transGasLimit").html(trans.gasLimit+' szabo');
+	table.find("#transGasLimit").html("<a href='/tool/converter'>"+trans.gasLimit+' szabo</a>');
 	
 	table.find("#transNonce").html(trans.nonce);
 	
 	table.find("#transInit").html(trans.init);
 	
-	table.find("#transFrom").html(trans.from);
+	table.find("#transFrom").html("<a>"+trans.from+"</a>");
 	
-	table.find("#transTo").html(trans.to);
+	table.find("#transTo").html("<a>"+trans.to+"</a>");
 	
 	table.find("#transTime").html("<abbr class='timeago' title='"+trans.time+"'>"+trans.time+"</abbr>");	
 }
