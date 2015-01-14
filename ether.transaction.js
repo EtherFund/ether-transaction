@@ -1,16 +1,13 @@
 /*
 - ether.transaction.js v0.1
 - Explore transactions on the Ethereum network discovered by Etherface.
-- http://ether.fund/tool/transactions
+- http://ether.fund/transactions
 - (c) 2014 J.R. Bédard (jrbedard.com)
 */
 
 
 // Init
 $(function() {
-
-	// transaction loading spinner...
-	$("#transactionTable tbody").append("<tr><td id='loadingTransactions' style='text-align:center;' colspan=6><i class='fa fa-cog fa-spin fa-2x'></i> Loading...</td></tr>");
 	
 });
 
@@ -18,6 +15,9 @@ $(function() {
 
 // list transactions
 function getTransactions() {
+	// transaction loading spinner...
+	$("#transactionTable tbody").append("<tr><td id='loadingTransactions' style='text-align:center;' colspan=6><i class='fa fa-cog fa-spin fa-2x'></i> Loading...</td></tr>");
+	
 	var args = {};
 	args.filter = $("#filterTransactions .btn").data('val');
 	args.sort = $("#sortTransactions .btn").data('val');
@@ -26,7 +26,7 @@ function getTransactions() {
 	
 	// todo: greyingout + loading animation;
 	
-	// get transactions
+	// list transactions
 	etherface.transaction('list', args, function(transactions) {
 		//console.log(transactions);
 		updateTransTable(transactions);
@@ -53,6 +53,28 @@ function getTransactions() {
 }
 
 
+// view
+function getTransaction(id) {
+	
+	var args = {};
+	args.filter = $("#filterTransactions .btn").data('val');
+	args.sort = $("#sortTransactions .btn").data('val');
+	args.start = 0;
+	args.range = 10;
+	
+	// todo: greyingout + loading animation;
+	
+	// get transactions
+	etherface.transaction('get', args, function(transaction) {
+		updateTransPage(transaction);
+		
+		$(".timeago").timeago();
+		$(".tooltip").tooltip({});
+	});
+}
+
+
+
 // table in /transactions
 function updateTransTable(transactions) {
 	//console.log(transactions);
@@ -63,9 +85,9 @@ function updateTransTable(transactions) {
 		var trans = transactions[p];
 		//console.log(trans);
 		
-		var line = "<tr><td>";
+		var line = "<tr>";
 		
-		line += "<a href='/tx/"+trans.id+"'>"+trans.id+'</a></td>';
+		line += "<td><a href='/tx/"+trans.id+"'>"+trans.id+'</a></td>';
 
 		line += "<td><a href='/tool/converter?'>"+trans.value+'</a></td>';
 		
@@ -89,32 +111,11 @@ function updateTransTable(transactions) {
 }
 
 
-// view
-function getTransaction(id) {
-	
-	var args = {};
-	args.filter = $("#filterTransactions .btn").data('val');
-	args.sort = $("#sortTransactions .btn").data('val');
-	args.start = 0;
-	args.range = 10;
-	
-	// todo: greyingout + loading animation;
-	
-	// get transactions
-	etherface.transaction('list', args, function(transactions) {
-		
-		var trans = transactions[0];
-		
-		updateTransPage(trans);
-		
-		$(".timeago").timeago();
-		$(".tooltip").tooltip({});
-	});
-}
 
 
 // update Transaction page : /tx/a5d6s6dsd
 function updateTransPage(trans) {
+	console.log(trans);
 	
 	$("#transTitle").text(trans.id);
 	
