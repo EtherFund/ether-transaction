@@ -1,5 +1,5 @@
 ether-transaction
 ===============
 
-Explore transactions on the Ethereum network discovered by Etherface.
+Explore transactions on the Ethereum blockchain.
 http://ether.fund/transactions
